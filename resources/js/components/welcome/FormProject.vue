@@ -19,27 +19,27 @@
                               </div>
                               <div class="modal-body">
                                 <form @submit.prevent="agregar">
-                                    <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="nota.nombre" required>
+                                    <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="proyecto.nombre" required>
                                     <div class="form-row">
                                       <div class="form-group col-md-6">
                                         <label>Tipo de Proyecto</label>
-                                          <select class="custom-select form-control mb-2" v-model="nota.tipo">
+                                          <select class="custom-select form-control mb-2" v-model="proyecto.tipo">
                                           <option>Seleciona tipo</option>
                                           <option :value="item.nombre" v-for="(item, index) in tipos" :key="index" v-text="item.nombre"></option>
                                         </select>
                                       </div>
                                       <div class="form-group col-md-6">
                                         <label>Servicio</label>
-                                          <select class="custom-select form-control mb-2" v-model="nota.servicio">
+                                          <select class="custom-select form-control mb-2" v-model="proyecto.servicio">
                                             <option>Seleciona tu servicio</option>
                                             <option :value="item.nombre" v-for="(item, index) in servicios" :key="index" v-text="item.nombre"></option>
                                           </select>
                                       </div>
                                     </div>
-                                    <textarea type="textarea" placeholder="Descripcion" class="form-control mb-2" v-model="nota.descripcion" required></textarea>
-                                    <input type="hidden" value="Sin Aceptar" class="form-control mb-2" v-model="nota.estatus">
-                                    <input type="email" placeholder="Correo" class="form-control mb-2" v-model="nota.correo" required>
-                                    <input type="cel" placeholder="Teléfono" class="form-control mb-2" v-model="nota.telefono" required>
+                                    <textarea type="textarea" placeholder="Descripcion" class="form-control mb-2" v-model="proyecto.descripcion" required></textarea>
+                                    <input type="hidden" value="Sin Aceptar" class="form-control mb-2" v-model="proyecto.estatus">
+                                    <input type="email" placeholder="Correo" class="form-control mb-2" v-model="proyecto.correo" required>
+                                    <input type="cel" placeholder="Teléfono" class="form-control mb-2" v-model="proyecto.telefono" required>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                         <button class="btn btn-primary" type="submit">Agregar</button>
@@ -60,8 +60,8 @@
 export default {
   data() {
     return {
-      notas: [],
-      nota: {nombre: '',
+      proyectos: [],
+      proyecto: {nombre: '',
             tipo: '',
             servicio: '',
             descripcion: '',
@@ -84,13 +84,14 @@ export default {
   },
   methods:{
     agregar(){
-      const notaNueva = this.nota;
-     this.nota = {nombre: '', tipo: '', servicio: '', descripcion: '', estatus: '',correo: '', telefono: ''};    
+      const notaNueva = this.proyecto;
+     this.proyecto = {nombre: '', tipo: '', servicio: '', descripcion: '', estatus: '',correo: '', telefono: ''};    
       axios.post('/proyecto', notaNueva)
         .then((res) =>{
           const notaServidor = res.data;
-          this.notas.push(notaServidor);
+          this.proyectos.push(notaServidor);
         })
+      $('#agregarProyecto').modal('hide')
       Swal.fire({
       icon: 'success',
       title: 'Proyecto Agregado',
@@ -99,7 +100,7 @@ export default {
       showConfirmButton: false,
       timer: 2500
     })
-    $('#agregarProyecto').modal('hide')
+    
     }
   }
 }

@@ -14,7 +14,8 @@
           </div>
           <div class="modal-body">
             <form @submit.prevent="agregar">
-                <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="nota.nombre" required>
+               <label>Nombre del servicio</label>
+                <input type="text" placeholder="Nombre del servicio" class="form-control mb-2" v-model="servicio.nombre" required>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
                   <button class="btn btn-primary" type="submit">Agregar</button>
@@ -26,15 +27,15 @@
     </div>
     <!--/Modal agregar servicio-->
     <!--Modal editar servicio-->
-    <div class="modal fade" id="editarServicio" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editarServicio" data-bs-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Editar proyecto </h5>
           </div>
           <div class="modal-body">
-            <form @submit.prevent="editarNota(nota)">
-                <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="nota.nombre" required>
+            <form @submit.prevent="editarServicio(servicio)">
+                <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="servicio.nombre" required>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-outline-dark" data-bs-dismiss="modal" @click="cancelarEdicion()">Cancelar</button>
                   <button class="btn btn-primary" type="submit">Guardar</button>
@@ -55,7 +56,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in notas" :key="index">
+          <tr v-for="(item, index) in servicios" :key="index">
             <th scope="row">{{item.nombre}}</th>
             <td>
               <button class="btn btn-warning btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#editarServicio" @click="editarFormulario(item)">
@@ -78,23 +79,23 @@
 export default {
   data() {
     return {
-      notas: [],
-      nota: {nombre: ''}
+      servicios: [],
+      servicio: {nombre: ''}
     }
   },
   created(){
     axios.get('/proyectos').then(res=>{
-      this.notas = res.data;
+      this.servicios = res.data;
     })
   },
   methods:{
     agregar(){
-      const notaNueva = this.nota;
-      this.nota = {nombre: ''};    
+      const notaNueva = this.servicio;
+      this.servicio = {nombre: ''};    
       axios.post('/proyectos', notaNueva)
         .then((res) =>{
           const notaServidor = res.data;
-          this.notas.push(notaServidor);
+          this.servicios.push(notaServidor);
         })
       Swal.fire({
       icon: 'success',
@@ -106,15 +107,15 @@ export default {
     $('#agregarServicio').modal('hide')
     },
     editarFormulario(item){
-      this.nota.nombre = item.nombre;
-      this.nota.id = item.id;
+      this.servicio.nombre = item.nombre;
+      this.servicio.id = item.id;
     },
-    editarNota(nota){
-      const params = {nombre: nota.nombre};
-      axios.put(`/proyectos/${nota.id}`, params)
+    editarServicio(servicio){
+      const params = {nombre: servicio.nombre};
+      axios.put(`/proyectos/${servicio.id}`, params)
         .then(res=>{
-          const index = this.notas.findIndex(item => item.id === nota.id);
-          this.notas[index] = res.data;
+          const index = this.servicios.findIndex(item => item.id === servicio.id);
+          this.servicios[index] = res.data;
         })
       Swal.fire({
       icon: 'success',
@@ -124,9 +125,9 @@ export default {
       timer: 1500
     })
     },
-    eliminarServicio(nota, index){
+    eliminarServicio(servicio, index){
       Swal.fire({
-      title:`¿Desea Eliminar ${nota.nombre}?`,
+      title:`¿Desea Eliminar ${servicio.nombre}?`,
       text: "No podra deshacer esta acción",
       icon: 'warning',
       showCancelButton: true,
@@ -136,20 +137,20 @@ export default {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`/proyectos/${nota.id}`)
+        axios.delete(`/proyectos/${servicio.id}`)
           .then(()=>{
-            this.notas.splice(index, 1);
+            this.servicios.splice(index, 1);
           })
         Swal.fire(
           '¡Eliminado!',
-          `"${nota.nombre}" eliminado con Exito`,
+          `"${servicio.nombre}" eliminado con Exito`,
           'success'
         )
       }
     })
     },
     cancelarEdicion(){
-      this.nota = {nombre: ''};
+      this.servicio = {nombre: ''};
     },
   }
 }

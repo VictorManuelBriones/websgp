@@ -25,7 +25,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::orderBy('created_at', 'desc')->paginate(10);
+        $users = User::orderBy('created_at', 'desc')->paginate(5);
         return view('dashboard.user.index', ['users' => $users]);
     }
 
@@ -56,7 +56,8 @@ class UserController extends Controller
                 'password' => Hash::make($request['password']),
             ]
         );
-        return back()->with('status', 'Usuario creado con exito');
+        //return back()->with('status', 'Usuario creado con exito');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -98,7 +99,7 @@ class UserController extends Controller
                 'phone' => $request['phone'],
             ]
         );
-        return back()->with('status', 'Usuario actualizado con exito');
+        return redirect()->route('user.index');
     }
 
     /**
@@ -110,6 +111,5 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return back()->with('status', 'Usuario eliminado con exito');
     }
 }

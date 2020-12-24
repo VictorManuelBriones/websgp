@@ -39,10 +39,10 @@
       <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
           @if (auth()->user()->rol_id == 1)
-          <h1 class="h2">Administración</h1>
+          <h5>Administrador</h5>
           @else
             @if (auth()->user()->rol_id == 2)
-            <h1 class="h2">Bienvenido {{ Auth::user()->name }} </h1>
+            <h5 class="text-muted">Bienvenido {{ Auth::user()->name }} </h5>
             @endif
           @endif
         </div>

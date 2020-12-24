@@ -2,21 +2,21 @@
   <!--CRUD Tipo de Proyecto-->
   <div>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarTipo">
-      Nuevo tipo de proyecto
+      <i class="fa fa-plus" aria-hidden="true"> </i> tipo de proyecto
     </button>
     <!--Modal agregar Tipo de Proyecto-->
     <div class="modal fade" id="agregarTipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo servicio</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h5 class="modal-title" id="exampleModalLabel">Agregar nuevo tipo de proyecto</h5>
           </div>
           <div class="modal-body">
             <form @submit.prevent="agregar">
-                <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="nota.nombre" required>
+              <label>Nombre del tipo de proyecto</label>
+                <input type="text" placeholder="Nombre del tipo de proyecto" class="form-control mb-2" v-model="tipo.nombre" required>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Cancelar</button>
                   <button class="btn btn-primary" type="submit">Agregar</button>
                 </div>
             </form>
@@ -26,16 +26,16 @@
     </div>
     <!--/Modal agregar Tipo de Proyecto-->
     <!--Modal editar Tipo de Proyecto-->
-    <div class="modal fade" id="editarTipo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal fade" id="editarTipo" data-bs-backdrop="static"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true ">
+      <div class="modal-dialog modal-dialog-centered modal">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Editar proyecto </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            
           </div>
           <div class="modal-body">
-            <form @submit.prevent="editarNota(nota)">
-                <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="nota.nombre" required>
+            <form @submit.prevent="editarTipo(tipo)">
+                <input type="text" placeholder="Nombre" class="form-control mb-2" v-model="tipo.nombre" required>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" @click="cancelarEdicion()">Cancelar</button>
                   <button class="btn btn-primary" type="submit">Guardar</button>
@@ -56,11 +56,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in notas" :key="index">
+          <tr v-for="(item, index) in tipos" :key="index">
             <th scope="row">{{item.nombre}}</th>
             <td>
-              <button class="btn btn-warning btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#editarTipo" @click="editarFormulario(item)">Editar</button>
-              <button class="btn btn-danger btn-sm" type="submit" @click="eliminarTipo(item, index)">Eliminar</button>
+              <button class="btn btn-warning btn-sm" type="submit" data-bs-toggle="modal" data-bs-target="#editarTipo" @click="editarFormulario(item)"><i class="fas fa-pen"></i> Editar</button>
+              <button class="btn btn-danger btn-sm" type="submit" @click="eliminarTipo(item, index)"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar</button>
+
             </td>
           </tr>
         </tbody>
@@ -74,24 +75,24 @@
 export default {
   data() {
     return {
-      notas: [],
+      tipos: [],
       editarActivo2: false,
-      nota: {nombre: ''}
+      tipo: {nombre: ''}
     }
   },
   created(){
     axios.get('/proyectot').then(res=>{
-      this.notas = res.data;
+      this.tipos = res.data;
     })
   },
   methods:{
     agregar(){
-      const notaNueva = this.nota;
-      this.nota = {nombre: ''};    
+      const notaNueva = this.tipo;
+      this.tipo = {nombre: ''};    
       axios.post('/proyectot', notaNueva)
         .then((res) =>{
           const notaServidor = res.data;
-          this.notas.push(notaServidor);
+          this.tipos.push(notaServidor);
         })
       $('#agregarTipo').modal('hide')
       Swal.fire({
@@ -103,19 +104,19 @@ export default {
     })
     },
     editarFormulario(item){
-      this.nota.nombre = item.nombre;
-      this.nota.id = item.id;
+      this.tipo.nombre = item.nombre;
+      this.tipo.id = item.id;
       this.editarActivo2 = true;
     },
-    editarNota(nota){
-      const params = {nombre: nota.nombre};
-      axios.put(`/proyectot/${nota.id}`, params)
+    editarTipo(tipo){
+      const params = {nombre: tipo.nombre};
+      axios.put(`/proyectot/${tipo.id}`, params)
         .then(res=>{
           this.editarActivo2 = false;
-          const index = this.notas.findIndex(item => item.id === nota.id);
-          this.notas[index] = res.data;
+          const index = this.tipos.findIndex(item => item.id === tipo.id);
+          this.tipos[index] = res.data;
         })
-      $('#editarTipo').modal('hide')
+      
       Swal.fire({
       icon: 'success',
       title: 'Tipo de proyecto actualizado',
@@ -124,9 +125,9 @@ export default {
       timer: 1500
     })
     },
-    eliminarTipo(nota, index){
+    eliminarTipo(tipo, index){
       Swal.fire({
-      title:`¿Desea Eliminar ${nota.nombre}?`,
+      title:`¿Desea Eliminar ${tipo.nombre}?`,
       text: "No podra deshacer esta acción",
       icon: 'warning',
       showCancelButton: true,
@@ -136,13 +137,13 @@ export default {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`/proyectot/${nota.id}`)
+        axios.delete(`/proyectot/${tipo.id}`)
           .then(()=>{
-            this.notas.splice(index, 1);
+            this.tipos.splice(index, 1);
           })
         Swal.fire(
           '¡Eliminado!',
-          `"${nota.nombre}" eliminado con Exito`,
+          `"${tipo.nombre}" eliminado con Exito`,
           'success'
         )
       }
@@ -150,7 +151,7 @@ export default {
     },
     cancelarEdicion(){
       this.editarActivo2 = false;
-      this.nota = {nombre: ''};
+      this.tipo = {nombre: ''};
     }
   }
 }

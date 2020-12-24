@@ -1,12 +1,11 @@
 <template>
     <div>
-                <!-- Contact-->
+        <!-- Contact-->
         <section class="contact-section bg-black">
             <div class="container">
                 <div class="social d-flex justify-content-center">
-                    <!--<a class="mx-2" href="#!"><i class="fab fa-twitter"></i></a>-->
-                    <a class="mx-2" href="https://www.facebook.com/imtechmexblautech"><i class="fab fa-facebook-f"></i></a>
-                    <a class="mx-2" href="https://www.instagram.com/imtechmex/"><i class="fab fa-instagram"></i></a>
+                    <a class="mx-2" target="_blank" href="https://www.facebook.com/imtechmexblautech"><i class="fab fa-facebook-f"></i></a>
+                    <a class="mx-2" target="_blank" href="https://www.instagram.com/imtechmex/"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </section>

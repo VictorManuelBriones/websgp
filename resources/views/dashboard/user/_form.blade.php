@@ -1,7 +1,4 @@
-@csrf
-<a class="btn btn-primary" href="{{ route('user.create') }}">
-    Crear
-</a>
+@csrf  
 <div class="form-group">
     <label for="name">Nombre</label>
     <input class="form-control" type="text" name="name" id="name" value="{{ old('name',$user->name) }}">
@@ -9,6 +6,7 @@
 <div class="form-group">
     <label for="email">E-mail</label>
     <input class="form-control" type="email" name="email" id="email" value="{{ old('email',$user->email) }}">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 </div>
 <div class="form-group">
     <label for="phone">Teléfono</label>
@@ -19,5 +17,6 @@
     <label for="password">Contraseña</label>
     <input class="form-control" type="password" name="password" id="password" value="{{ old('password',$user->password) }}">
 </div>
+
 @endif
 <input type="submit" value="Enviar" class="btn btn-primary">

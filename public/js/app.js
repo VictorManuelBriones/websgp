@@ -171,11 +171,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notas: [],
-      nota: {
+      servicios: [],
+      servicio: {
         nombre: ''
       }
     };
@@ -184,21 +185,21 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/proyectos').then(function (res) {
-      _this.notas = res.data;
+      _this.servicios = res.data;
     });
   },
   methods: {
     agregar: function agregar() {
       var _this2 = this;
 
-      var notaNueva = this.nota;
-      this.nota = {
+      var notaNueva = this.servicio;
+      this.servicio = {
         nombre: ''
       };
       axios.post('/proyectos', notaNueva).then(function (res) {
         var notaServidor = res.data;
 
-        _this2.notas.push(notaServidor);
+        _this2.servicios.push(notaServidor);
       });
       Swal.fire({
         icon: 'success',
@@ -210,21 +211,21 @@ __webpack_require__.r(__webpack_exports__);
       $('#agregarServicio').modal('hide');
     },
     editarFormulario: function editarFormulario(item) {
-      this.nota.nombre = item.nombre;
-      this.nota.id = item.id;
+      this.servicio.nombre = item.nombre;
+      this.servicio.id = item.id;
     },
-    editarNota: function editarNota(nota) {
+    editarServicio: function editarServicio(servicio) {
       var _this3 = this;
 
       var params = {
-        nombre: nota.nombre
+        nombre: servicio.nombre
       };
-      axios.put("/proyectos/".concat(nota.id), params).then(function (res) {
-        var index = _this3.notas.findIndex(function (item) {
-          return item.id === nota.id;
+      axios.put("/proyectos/".concat(servicio.id), params).then(function (res) {
+        var index = _this3.servicios.findIndex(function (item) {
+          return item.id === servicio.id;
         });
 
-        _this3.notas[index] = res.data;
+        _this3.servicios[index] = res.data;
       });
       Swal.fire({
         icon: 'success',
@@ -234,11 +235,11 @@ __webpack_require__.r(__webpack_exports__);
         timer: 1500
       });
     },
-    eliminarServicio: function eliminarServicio(nota, index) {
+    eliminarServicio: function eliminarServicio(servicio, index) {
       var _this4 = this;
 
       Swal.fire({
-        title: "\xBFDesea Eliminar ".concat(nota.nombre, "?"),
+        title: "\xBFDesea Eliminar ".concat(servicio.nombre, "?"),
         text: "No podra deshacer esta acción",
         icon: 'warning',
         showCancelButton: true,
@@ -248,15 +249,15 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]("/proyectos/".concat(nota.id)).then(function () {
-            _this4.notas.splice(index, 1);
+          axios["delete"]("/proyectos/".concat(servicio.id)).then(function () {
+            _this4.servicios.splice(index, 1);
           });
-          Swal.fire('¡Eliminado!', "\"".concat(nota.nombre, "\" eliminado con Exito"), 'success');
+          Swal.fire('¡Eliminado!', "\"".concat(servicio.nombre, "\" eliminado con Exito"), 'success');
         }
       });
     },
     cancelarEdicion: function cancelarEdicion() {
-      this.nota = {
+      this.servicio = {
         nombre: ''
       };
     }
@@ -346,12 +347,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notas: [],
+      tipos: [],
       editarActivo2: false,
-      nota: {
+      tipo: {
         nombre: ''
       }
     };
@@ -360,21 +362,21 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/proyectot').then(function (res) {
-      _this.notas = res.data;
+      _this.tipos = res.data;
     });
   },
   methods: {
     agregar: function agregar() {
       var _this2 = this;
 
-      var notaNueva = this.nota;
-      this.nota = {
+      var notaNueva = this.tipo;
+      this.tipo = {
         nombre: ''
       };
       axios.post('/proyectot', notaNueva).then(function (res) {
         var notaServidor = res.data;
 
-        _this2.notas.push(notaServidor);
+        _this2.tipos.push(notaServidor);
       });
       $('#agregarTipo').modal('hide');
       Swal.fire({
@@ -386,26 +388,25 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editarFormulario: function editarFormulario(item) {
-      this.nota.nombre = item.nombre;
-      this.nota.id = item.id;
+      this.tipo.nombre = item.nombre;
+      this.tipo.id = item.id;
       this.editarActivo2 = true;
     },
-    editarNota: function editarNota(nota) {
+    editarTipo: function editarTipo(tipo) {
       var _this3 = this;
 
       var params = {
-        nombre: nota.nombre
+        nombre: tipo.nombre
       };
-      axios.put("/proyectot/".concat(nota.id), params).then(function (res) {
+      axios.put("/proyectot/".concat(tipo.id), params).then(function (res) {
         _this3.editarActivo2 = false;
 
-        var index = _this3.notas.findIndex(function (item) {
-          return item.id === nota.id;
+        var index = _this3.tipos.findIndex(function (item) {
+          return item.id === tipo.id;
         });
 
-        _this3.notas[index] = res.data;
+        _this3.tipos[index] = res.data;
       });
-      $('#editarTipo').modal('hide');
       Swal.fire({
         icon: 'success',
         title: 'Tipo de proyecto actualizado',
@@ -414,11 +415,11 @@ __webpack_require__.r(__webpack_exports__);
         timer: 1500
       });
     },
-    eliminarTipo: function eliminarTipo(nota, index) {
+    eliminarTipo: function eliminarTipo(tipo, index) {
       var _this4 = this;
 
       Swal.fire({
-        title: "\xBFDesea Eliminar ".concat(nota.nombre, "?"),
+        title: "\xBFDesea Eliminar ".concat(tipo.nombre, "?"),
         text: "No podra deshacer esta acción",
         icon: 'warning',
         showCancelButton: true,
@@ -428,16 +429,16 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]("/proyectot/".concat(nota.id)).then(function () {
-            _this4.notas.splice(index, 1);
+          axios["delete"]("/proyectot/".concat(tipo.id)).then(function () {
+            _this4.tipos.splice(index, 1);
           });
-          Swal.fire('¡Eliminado!', "\"".concat(nota.nombre, "\" eliminado con Exito"), 'success');
+          Swal.fire('¡Eliminado!', "\"".concat(tipo.nombre, "\" eliminado con Exito"), 'success');
         }
       });
     },
     cancelarEdicion: function cancelarEdicion() {
       this.editarActivo2 = false;
-      this.nota = {
+      this.tipo = {
         nombre: ''
       };
     }
@@ -559,11 +560,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notas: [],
-      nota: {
+      proyectos: [],
+      proyecto: {
         nombre: '',
         tipo: '',
         servicio: '',
@@ -623,49 +657,59 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/proyecto?page=' + page;
       axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.notas = respuesta.proyecto.data;
+        me.proyectos = respuesta.proyecto.data;
         me.pagination = respuesta.pagination;
       })["catch"](function (error) {
         console.log(error);
       });
     },
     editarFormulario: function editarFormulario(item) {
-      this.nota.id = item.id;
-      this.nota.nombre = item.nombre;
-      this.nota.tipo = item.tipo;
-      this.nota.servicio = item.servicio;
-      this.nota.descripcion = item.descripcion;
-      this.nota.estatus = item.estatus;
-      this.nota.correo = item.correo;
-      this.nota.telefono = item.telefono;
+      this.proyecto.id = item.id;
+      this.proyecto.nombre = item.nombre;
+      this.proyecto.tipo = item.tipo;
+      this.proyecto.servicio = item.servicio;
+      this.proyecto.descripcion = item.descripcion;
+      this.proyecto.estatus = item.estatus;
+      this.proyecto.correo = item.correo;
+      this.proyecto.telefono = item.telefono;
     },
-    editarNota: function editarNota(nota) {
+    editarNota: function editarNota(proyecto) {
       var _this = this;
 
       var params = {
-        nombre: nota.nombre,
-        tipo: nota.tipo,
-        servicio: nota.servicio,
-        descripcion: nota.descripcion,
-        estatus: nota.estatus,
-        correo: nota.correo,
-        telefono: nota.telefono
+        nombre: proyecto.nombre,
+        tipo: proyecto.tipo,
+        servicio: proyecto.servicio,
+        descripcion: proyecto.descripcion,
+        estatus: proyecto.estatus,
+        correo: proyecto.correo,
+        telefono: proyecto.telefono
       };
-      axios.put("/proyecto/".concat(nota.id), params).then(function (res) {
-        var index = _this.notas.findIndex(function (item) {
-          return item.id === nota.id;
+      axios.put("/proyecto/".concat(proyecto.id), params).then(function (res) {
+        var index = _this.proyectos.findIndex(function (item) {
+          return item.id === proyecto.id;
         });
 
-        _this.notas[index] = res.data;
+        _this.proyectos[index] = res.data;
       });
       Swal.fire({
         icon: 'success',
-        title: "Proyecto ".concat(nota.estatus),
+        title: "Proyecto ".concat(proyecto.estatus),
         showConfirmButton: false,
         timer: 1500,
         timerProgressBar: true
       });
-      $('#exampleModal').modal('hide');
+    },
+    cancelarEdicion: function cancelarEdicion() {
+      this.proyecto = {
+        nombre: '',
+        tipo: '',
+        servicio: '',
+        descripcion: '',
+        estatus: '',
+        correo: '',
+        telefono: ''
+      };
     },
     cambiarPagina: function cambiarPagina(page) {
       var me = this; //Actualiza la página actual
@@ -857,11 +901,42 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notas: [],
-      nota: {
+      proyectos: [],
+      proyecto: {
         nombre: '',
         tipo: '',
         servicio: '',
@@ -884,7 +959,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios.get('/proyecto').then(function (res) {
-      _this.notas = res.data;
+      _this.proyectos = res.data;
     });
     axios.get('/proyectot').then(function (res) {
       _this.tipos = res.data;
@@ -897,9 +972,9 @@ __webpack_require__.r(__webpack_exports__);
     agregar: function agregar() {
       var _this2 = this;
 
-      //console.log(this.nota.nombre,this.nota.tipo, this.nota.servicio, this.nota.descripcion, this.nota.estatus, this.nota.correo, this.nota.telefono)
-      var notaNueva = this.nota;
-      this.nota = {
+      //console.log(this.proyecto.nombre,this.proyecto.tipo, this.proyecto.servicio, this.proyecto.descripcion, this.proyecto.estatus, this.proyecto.correo, this.proyecto.telefono)
+      var notaNueva = this.proyecto;
+      this.proyecto = {
         nombre: '',
         tipo: '',
         servicio: '',
@@ -911,7 +986,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/proyecto', notaNueva).then(function (res) {
         var notaServidor = res.data;
 
-        _this2.notas.push(notaServidor);
+        _this2.proyectos.push(notaServidor);
       });
       Swal.fire({
         icon: 'success',
@@ -923,35 +998,34 @@ __webpack_require__.r(__webpack_exports__);
       $('#agregarProyecto').modal('hide');
     },
     editarFormulario: function editarFormulario(item) {
-      this.nota.id = item.id;
-      this.nota.nombre = item.nombre;
-      this.nota.tipo = item.tipo;
-      this.nota.servicio = item.servicio;
-      this.nota.descripcion = item.descripcion;
-      this.nota.estatus = item.estatus;
-      this.nota.correo = item.correo;
-      this.nota.telefono = item.telefono;
+      this.proyecto.id = item.id;
+      this.proyecto.nombre = item.nombre;
+      this.proyecto.tipo = item.tipo;
+      this.proyecto.servicio = item.servicio;
+      this.proyecto.descripcion = item.descripcion;
+      this.proyecto.estatus = item.estatus;
+      this.proyecto.correo = item.correo;
+      this.proyecto.telefono = item.telefono;
     },
-    editarNota: function editarNota(nota) {
+    editarProyecto: function editarProyecto(proyecto) {
       var _this3 = this;
 
       var params = {
-        nombre: nota.nombre,
-        tipo: nota.tipo,
-        servicio: nota.servicio,
-        descripcion: nota.descripcion,
-        estatus: nota.estatus,
-        correo: nota.correo,
-        telefono: nota.telefono
+        nombre: proyecto.nombre,
+        tipo: proyecto.tipo,
+        servicio: proyecto.servicio,
+        descripcion: proyecto.descripcion,
+        estatus: proyecto.estatus,
+        correo: proyecto.correo,
+        telefono: proyecto.telefono
       };
-      axios.put("/proyecto/".concat(nota.id), params).then(function (res) {
-        var index = _this3.notas.findIndex(function (item) {
-          return item.id === nota.id;
+      axios.put("/proyecto/".concat(proyecto.id), params).then(function (res) {
+        var index = _this3.proyectos.findIndex(function (item) {
+          return item.id === proyecto.id;
         });
 
-        _this3.notas[index] = res.data;
+        _this3.proyectos[index] = res.data;
       });
-      $('#editarProyecto').modal('hide');
       Swal.fire({
         icon: 'success',
         title: 'Información actualizada',
@@ -960,11 +1034,11 @@ __webpack_require__.r(__webpack_exports__);
         timer: 1500
       });
     },
-    eliminarProyecto: function eliminarProyecto(nota, index) {
+    eliminarProyecto: function eliminarProyecto(proyecto, index) {
       var _this4 = this;
 
       Swal.fire({
-        title: "\xBFDesea Eliminar ".concat(nota.nombre, "?"),
+        title: "\xBFDesea Eliminar ".concat(proyecto.nombre, "?"),
         text: "No podra deshacer esta acción",
         icon: 'warning',
         showCancelButton: true,
@@ -974,15 +1048,15 @@ __webpack_require__.r(__webpack_exports__);
         cancelButtonText: 'Cancelar'
       }).then(function (result) {
         if (result.isConfirmed) {
-          axios["delete"]("/proyecto/".concat(nota.id)).then(function () {
-            _this4.notas.splice(index, 1);
+          axios["delete"]("/proyecto/".concat(proyecto.id)).then(function () {
+            _this4.proyectos.splice(index, 1);
           });
-          Swal.fire('¡Eliminado!', "\"".concat(nota.nombre, "\" eliminado con Exito"), 'success');
+          Swal.fire('¡Eliminado!', "\"".concat(proyecto.nombre, "\" eliminado con Exito"), 'success');
         }
       });
     },
     cancelarEdicion: function cancelarEdicion() {
-      this.nota = {
+      this.proyecto = {
         nombre: '',
         tipo: '',
         servicio: '',
@@ -1113,7 +1187,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Footer'
 });
@@ -1157,6 +1230,41 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -1281,8 +1389,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      notas: [],
-      nota: {
+      proyectos: [],
+      proyecto: {
         nombre: '',
         tipo: '',
         servicio: '',
@@ -1315,8 +1423,8 @@ __webpack_require__.r(__webpack_exports__);
     agregar: function agregar() {
       var _this2 = this;
 
-      var notaNueva = this.nota;
-      this.nota = {
+      var notaNueva = this.proyecto;
+      this.proyecto = {
         nombre: '',
         tipo: '',
         servicio: '',
@@ -1328,8 +1436,9 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/proyecto', notaNueva).then(function (res) {
         var notaServidor = res.data;
 
-        _this2.notas.push(notaServidor);
+        _this2.proyectos.push(notaServidor);
       });
+      $('#agregarProyecto').modal('hide');
       Swal.fire({
         icon: 'success',
         title: 'Proyecto Agregado',
@@ -1338,7 +1447,6 @@ __webpack_require__.r(__webpack_exports__);
         showConfirmButton: false,
         timer: 2500
       });
-      $('#agregarProyecto').modal('hide');
     }
   }
 });
@@ -1859,28 +1967,30 @@ var render = function() {
                   }
                 },
                 [
+                  _c("label", [_vm._v("Nombre del servicio")]),
+                  _vm._v(" "),
                   _c("input", {
                     directives: [
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.nota.nombre,
-                        expression: "nota.nombre"
+                        value: _vm.servicio.nombre,
+                        expression: "servicio.nombre"
                       }
                     ],
                     staticClass: "form-control mb-2",
                     attrs: {
                       type: "text",
-                      placeholder: "Nombre",
+                      placeholder: "Nombre del servicio",
                       required: ""
                     },
-                    domProps: { value: _vm.nota.nombre },
+                    domProps: { value: _vm.servicio.nombre },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.nota, "nombre", $event.target.value)
+                        _vm.$set(_vm.servicio, "nombre", $event.target.value)
                       }
                     }
                   }),
@@ -1900,7 +2010,7 @@ var render = function() {
         staticClass: "modal fade",
         attrs: {
           id: "editarServicio",
-          "data-backdrop": "static",
+          "data-bs-backdrop": "static",
           "data-keyboard": "false",
           tabindex: "-1",
           "aria-labelledby": "exampleModalLabel",
@@ -1919,7 +2029,7 @@ var render = function() {
                   on: {
                     submit: function($event) {
                       $event.preventDefault()
-                      return _vm.editarNota(_vm.nota)
+                      return _vm.editarServicio(_vm.servicio)
                     }
                   }
                 },
@@ -1929,8 +2039,8 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: _vm.nota.nombre,
-                        expression: "nota.nombre"
+                        value: _vm.servicio.nombre,
+                        expression: "servicio.nombre"
                       }
                     ],
                     staticClass: "form-control mb-2",
@@ -1939,13 +2049,13 @@ var render = function() {
                       placeholder: "Nombre",
                       required: ""
                     },
-                    domProps: { value: _vm.nota.nombre },
+                    domProps: { value: _vm.servicio.nombre },
                     on: {
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(_vm.nota, "nombre", $event.target.value)
+                        _vm.$set(_vm.servicio, "nombre", $event.target.value)
                       }
                     }
                   }),
@@ -1988,7 +2098,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.notas, function(item, index) {
+          _vm._l(_vm.servicios, function(item, index) {
             return _c("tr", { key: index }, [
               _c("th", { attrs: { scope: "row" } }, [
                 _vm._v(_vm._s(item.nombre))
@@ -2148,18 +2258,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-primary",
-        attrs: {
-          type: "button",
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#agregarTipo"
-        }
-      },
-      [_vm._v("\n    Nuevo tipo de proyecto\n  ")]
-    ),
+    _vm._m(0),
     _vm._v(" "),
     _c(
       "div",
@@ -2173,58 +2272,56 @@ var render = function() {
         }
       },
       [
-        _c(
-          "div",
-          { staticClass: "modal-dialog modal-dialog-centered modal-xl" },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(0),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
+        _c("div", { staticClass: "modal-dialog modal-dialog-centered" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.agregar($event)
+                    }
+                  }
+                },
+                [
+                  _c("label", [_vm._v("Nombre del tipo de proyecto")]),
+                  _vm._v(" "),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tipo.nombre,
+                        expression: "tipo.nombre"
+                      }
+                    ],
+                    staticClass: "form-control mb-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Nombre del tipo de proyecto",
+                      required: ""
+                    },
+                    domProps: { value: _vm.tipo.nombre },
                     on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.agregar($event)
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.tipo, "nombre", $event.target.value)
                       }
                     }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nota.nombre,
-                          expression: "nota.nombre"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Nombre",
-                        required: ""
-                      },
-                      domProps: { value: _vm.nota.nombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.nota, "nombre", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(1)
-                  ]
-                )
-              ])
+                  }),
+                  _vm._v(" "),
+                  _vm._m(2)
+                ]
+              )
             ])
-          ]
-        )
+          ])
+        ])
       ]
     ),
     _vm._v(" "),
@@ -2234,97 +2331,94 @@ var render = function() {
         staticClass: "modal fade",
         attrs: {
           id: "editarTipo",
+          "data-bs-backdrop": "static",
           tabindex: "-1",
           "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
+          "aria-hidden": "true "
         }
       },
       [
-        _c(
-          "div",
-          { staticClass: "modal-dialog modal-dialog-centered modal-xl" },
-          [
-            _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
-              _vm._v(" "),
-              _c("div", { staticClass: "modal-body" }, [
-                _c(
-                  "form",
-                  {
+        _c("div", { staticClass: "modal-dialog modal-dialog-centered modal" }, [
+          _c("div", { staticClass: "modal-content" }, [
+            _vm._m(3),
+            _vm._v(" "),
+            _c("div", { staticClass: "modal-body" }, [
+              _c(
+                "form",
+                {
+                  on: {
+                    submit: function($event) {
+                      $event.preventDefault()
+                      return _vm.editarTipo(_vm.tipo)
+                    }
+                  }
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.tipo.nombre,
+                        expression: "tipo.nombre"
+                      }
+                    ],
+                    staticClass: "form-control mb-2",
+                    attrs: {
+                      type: "text",
+                      placeholder: "Nombre",
+                      required: ""
+                    },
+                    domProps: { value: _vm.tipo.nombre },
                     on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.editarNota(_vm.nota)
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(_vm.tipo, "nombre", $event.target.value)
                       }
                     }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nota.nombre,
-                          expression: "nota.nombre"
+                  }),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "modal-footer" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-secondary",
+                        attrs: { type: "submit", "data-bs-dismiss": "modal" },
+                        on: {
+                          click: function($event) {
+                            return _vm.cancelarEdicion()
+                          }
                         }
-                      ],
-                      staticClass: "form-control mb-2",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Nombre",
-                        required: ""
                       },
-                      domProps: { value: _vm.nota.nombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.nota, "nombre", $event.target.value)
-                        }
-                      }
-                    }),
+                      [_vm._v("Cancelar")]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "modal-footer" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-secondary",
-                          attrs: { type: "submit", "data-bs-dismiss": "modal" },
-                          on: {
-                            click: function($event) {
-                              return _vm.cancelarEdicion()
-                            }
-                          }
-                        },
-                        [_vm._v("Cancelar")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "button",
-                        {
-                          staticClass: "btn btn-primary",
-                          attrs: { type: "submit" }
-                        },
-                        [_vm._v("Guardar")]
-                      )
-                    ])
-                  ]
-                )
-              ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "btn btn-primary",
+                        attrs: { type: "submit" }
+                      },
+                      [_vm._v("Guardar")]
+                    )
+                  ])
+                ]
+              )
             ])
-          ]
-        )
+          ])
+        ])
       ]
     ),
     _vm._v(" "),
     _c("ul", { staticClass: "list-group my-2" }, [
       _c("table", { staticClass: "table table-hover" }, [
-        _vm._m(3),
+        _vm._m(4),
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.notas, function(item, index) {
+          _vm._l(_vm.tipos, function(item, index) {
             return _c("tr", { key: index }, [
               _c("th", { attrs: { scope: "row" } }, [
                 _vm._v(_vm._s(item.nombre))
@@ -2346,7 +2440,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Editar")]
+                  [_c("i", { staticClass: "fas fa-pen" }), _vm._v(" Editar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -2360,7 +2454,13 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Eliminar")]
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-trash",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" Eliminar")
+                  ]
                 )
               ])
             ])
@@ -2376,21 +2476,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#agregarTipo"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-plus",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" tipo de proyecto\n  ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
-        [_vm._v("Agregar nuevo servicio")]
-      ),
-      _vm._v(" "),
-      _c("button", {
-        staticClass: "btn-close",
-        attrs: {
-          type: "button",
-          "data-bs-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      })
+        [_vm._v("Agregar nuevo tipo de proyecto")]
+      )
     ])
   },
   function() {
@@ -2401,7 +2515,7 @@ var staticRenderFns = [
       _c(
         "button",
         {
-          staticClass: "btn btn-secondary",
+          staticClass: "btn btn-outline-dark",
           attrs: { type: "button", "data-bs-dismiss": "modal" }
         },
         [_vm._v("Cancelar")]
@@ -2423,16 +2537,7 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [_vm._v("Editar proyecto ")]
-      ),
-      _vm._v(" "),
-      _c("button", {
-        staticClass: "btn-close",
-        attrs: {
-          type: "button",
-          "data-bs-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      })
+      )
     ])
   },
   function() {
@@ -2476,6 +2581,7 @@ var render = function() {
         staticClass: "modal fade",
         attrs: {
           id: "exampleModal",
+          "data-bs-backdrop": "static",
           tabindex: "-1",
           "aria-labelledby": "exampleModalLabel",
           "aria-hidden": "true"
@@ -2490,25 +2596,59 @@ var render = function() {
               _vm._m(0),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("p", { staticClass: "font-weight-bold" }, [
-                  _vm._v("Nombre: " + _vm._s(_vm.nota.nombre))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "font-weight-bolder" }, [
-                  _vm._v("Tipo: " + _vm._s(_vm.nota.tipo))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "font-weight-normal" }, [
-                  _vm._v("Servicio: " + _vm._s(_vm.nota.servicio))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "font-weight-bold" }, [
-                  _vm._v("Correo: " + _vm._s(_vm.nota.correo))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "font-weight-bold" }, [
-                  _vm._v("Teléfono: " + _vm._s(_vm.nota.telefono))
-                ]),
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-borderless",
+                    staticStyle: { "text-align": "center" }
+                  },
+                  [
+                    _c("tbody", [
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.nombre) +
+                              "\r\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.correo) +
+                              "\r\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.telefono) +
+                              "\r\n                    "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { attrs: { colspan: "3" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.servicio) +
+                              "\r\n                      "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { colspan: "3" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.tipo) +
+                              "\r\n                        "
+                          )
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -2518,7 +2658,7 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "card" }, [
-                      _vm._m(1),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -2534,7 +2674,7 @@ var render = function() {
                           _c("div", { staticClass: "card-body" }, [
                             _vm._v(
                               "\r\n                      " +
-                                _vm._s(_vm.nota.descripcion) +
+                                _vm._s(_vm.proyecto.descripcion) +
                                 "\r\n                    "
                             )
                           ])
@@ -2544,17 +2684,25 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c(
                   "form",
                   {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.editarNota(_vm.nota)
+                        return _vm.editarNota(_vm.proyecto)
                       }
                     }
                   },
                   [
+                    _c("label", { staticClass: "text-primary" }, [
+                      _vm._v(
+                        "\r\n                  Cambiar estatus\r\n                "
+                      )
+                    ]),
+                    _vm._v(" "),
                     _c(
                       "select",
                       {
@@ -2562,8 +2710,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.nota.estatus,
-                            expression: "nota.estatus"
+                            value: _vm.proyecto.estatus,
+                            expression: "proyecto.estatus"
                           }
                         ],
                         staticClass: "form-select form-control mb-2",
@@ -2582,7 +2730,7 @@ var render = function() {
                                 return val
                               })
                             _vm.$set(
-                              _vm.nota,
+                              _vm.proyecto,
                               "estatus",
                               $event.target.multiple
                                 ? $$selectedVal
@@ -2658,11 +2806,11 @@ var render = function() {
     _vm._v(" "),
     _c("ul", { staticClass: "list-group my-2" }, [
       _c("table", { staticClass: "table table-hover" }, [
-        _vm._m(2),
+        _vm._m(4),
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.notas, function(item, index) {
+          _vm._l(_vm.proyectos, function(item, index) {
             return _c("tr", { key: index }, [
               _c("th", { attrs: { scope: "row" } }, [
                 _c(
@@ -2815,16 +2963,57 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [_vm._v("Datos del proyecto")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "2" } },
+        [_vm._v("  \r\n                      Nombre\r\n                    ")]
       ),
       _vm._v(" "),
-      _c("button", {
-        staticClass: "btn-close",
-        attrs: {
-          type: "button",
-          "data-bs-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      })
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "2" } },
+        [
+          _vm._v(
+            "\r\n                      Correo electronico\r\n                    "
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "2" } },
+        [_vm._v("\r\n                      Telefono\r\n                    ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "3" } },
+        [_vm._v("Tipo de Servicio\r\n                    ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "3" } },
+        [
+          _vm._v(
+            "\r\n                      Tipo de Proyecto\r\n                    "
+          )
+        ]
+      )
     ])
   },
   function() {
@@ -2835,7 +3024,7 @@ var staticRenderFns = [
       "div",
       { staticClass: "card-header", attrs: { id: "headingOne" } },
       [
-        _c("h2", { staticClass: "mb-0" }, [
+        _c("h6", { staticClass: "mb-0 text-center" }, [
           _c(
             "a",
             {
@@ -2896,18 +3085,9 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass: "btn btn-primary",
-        attrs: {
-          type: "button",
-          "data-bs-toggle": "modal",
-          "data-bs-target": "#agregarProyecto"
-        }
-      },
-      [_vm._v("\n    Nuevo proyecto\n  ")]
-    ),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("hr"),
     _vm._v(" "),
     _c(
       "div",
@@ -2926,7 +3106,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-dialog-centered modal-xl" },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -2945,8 +3125,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.nombre,
-                          expression: "nota.nombre"
+                          value: _vm.proyecto.nombre,
+                          expression: "proyecto.nombre"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -2955,13 +3135,13 @@ var render = function() {
                         placeholder: "Nombre",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.nombre },
+                      domProps: { value: _vm.proyecto.nombre },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "nombre", $event.target.value)
+                          _vm.$set(_vm.proyecto, "nombre", $event.target.value)
                         }
                       }
                     }),
@@ -2977,8 +3157,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.nota.tipo,
-                                expression: "nota.tipo"
+                                value: _vm.proyecto.tipo,
+                                expression: "proyecto.tipo"
                               }
                             ],
                             staticClass: "custom-select form-control mb-2",
@@ -2993,7 +3173,7 @@ var render = function() {
                                     return val
                                   })
                                 _vm.$set(
-                                  _vm.nota,
+                                  _vm.proyecto,
                                   "tipo",
                                   $event.target.multiple
                                     ? $$selectedVal
@@ -3029,8 +3209,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.nota.servicio,
-                                expression: "nota.servicio"
+                                value: _vm.proyecto.servicio,
+                                expression: "proyecto.servicio"
                               }
                             ],
                             staticClass: "custom-select form-control mb-2",
@@ -3045,7 +3225,7 @@ var render = function() {
                                     return val
                                   })
                                 _vm.$set(
-                                  _vm.nota,
+                                  _vm.proyecto,
                                   "servicio",
                                   $event.target.multiple
                                     ? $$selectedVal
@@ -3077,8 +3257,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.descripcion,
-                          expression: "nota.descripcion"
+                          value: _vm.proyecto.descripcion,
+                          expression: "proyecto.descripcion"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3087,13 +3267,17 @@ var render = function() {
                         placeholder: "Descripcion",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.descripcion },
+                      domProps: { value: _vm.proyecto.descripcion },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "descripcion", $event.target.value)
+                          _vm.$set(
+                            _vm.proyecto,
+                            "descripcion",
+                            $event.target.value
+                          )
                         }
                       }
                     }),
@@ -3103,19 +3287,19 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.estatus,
-                          expression: "nota.estatus"
+                          value: _vm.proyecto.estatus,
+                          expression: "proyecto.estatus"
                         }
                       ],
                       staticClass: "form-control mb-2",
                       attrs: { type: "hidden", value: "Sin Aceptar" },
-                      domProps: { value: _vm.nota.estatus },
+                      domProps: { value: _vm.proyecto.estatus },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "estatus", $event.target.value)
+                          _vm.$set(_vm.proyecto, "estatus", $event.target.value)
                         }
                       }
                     }),
@@ -3125,8 +3309,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.correo,
-                          expression: "nota.correo"
+                          value: _vm.proyecto.correo,
+                          expression: "proyecto.correo"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3135,13 +3319,13 @@ var render = function() {
                         placeholder: "Correo",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.correo },
+                      domProps: { value: _vm.proyecto.correo },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "correo", $event.target.value)
+                          _vm.$set(_vm.proyecto, "correo", $event.target.value)
                         }
                       }
                     }),
@@ -3151,8 +3335,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.telefono,
-                          expression: "nota.telefono"
+                          value: _vm.proyecto.telefono,
+                          expression: "proyecto.telefono"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3161,18 +3345,22 @@ var render = function() {
                         placeholder: "Teléfono",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.telefono },
+                      domProps: { value: _vm.proyecto.telefono },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "telefono", $event.target.value)
+                          _vm.$set(
+                            _vm.proyecto,
+                            "telefono",
+                            $event.target.value
+                          )
                         }
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(1)
+                    _vm._m(2)
                   ]
                 )
               ])
@@ -3190,7 +3378,8 @@ var render = function() {
           id: "editarProyecto",
           tabindex: "-1",
           "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
+          "aria-hidden": "true",
+          "data-bs-backdrop": "static"
         }
       },
       [
@@ -3199,7 +3388,7 @@ var render = function() {
           { staticClass: "modal-dialog modal-dialog-centered modal-xl" },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(2),
+              _vm._m(3),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
                 _c(
@@ -3208,7 +3397,7 @@ var render = function() {
                     on: {
                       submit: function($event) {
                         $event.preventDefault()
-                        return _vm.editarNota(_vm.nota)
+                        return _vm.editarProyecto(_vm.proyecto)
                       }
                     }
                   },
@@ -3218,8 +3407,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.nombre,
-                          expression: "nota.nombre"
+                          value: _vm.proyecto.nombre,
+                          expression: "proyecto.nombre"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3228,13 +3417,13 @@ var render = function() {
                         placeholder: "Nombre",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.nombre },
+                      domProps: { value: _vm.proyecto.nombre },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "nombre", $event.target.value)
+                          _vm.$set(_vm.proyecto, "nombre", $event.target.value)
                         }
                       }
                     }),
@@ -3250,8 +3439,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.nota.tipo,
-                                expression: "nota.tipo"
+                                value: _vm.proyecto.tipo,
+                                expression: "proyecto.tipo"
                               }
                             ],
                             staticClass: "custom-select form-control mb-2",
@@ -3266,7 +3455,7 @@ var render = function() {
                                     return val
                                   })
                                 _vm.$set(
-                                  _vm.nota,
+                                  _vm.proyecto,
                                   "tipo",
                                   $event.target.multiple
                                     ? $$selectedVal
@@ -3302,8 +3491,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.nota.servicio,
-                                expression: "nota.servicio"
+                                value: _vm.proyecto.servicio,
+                                expression: "proyecto.servicio"
                               }
                             ],
                             staticClass: "custom-select form-control mb-2",
@@ -3318,7 +3507,7 @@ var render = function() {
                                     return val
                                   })
                                 _vm.$set(
-                                  _vm.nota,
+                                  _vm.proyecto,
                                   "servicio",
                                   $event.target.multiple
                                     ? $$selectedVal
@@ -3350,8 +3539,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.descripcion,
-                          expression: "nota.descripcion"
+                          value: _vm.proyecto.descripcion,
+                          expression: "proyecto.descripcion"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3360,13 +3549,17 @@ var render = function() {
                         placeholder: "Descripcion",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.descripcion },
+                      domProps: { value: _vm.proyecto.descripcion },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "descripcion", $event.target.value)
+                          _vm.$set(
+                            _vm.proyecto,
+                            "descripcion",
+                            $event.target.value
+                          )
                         }
                       }
                     }),
@@ -3376,8 +3569,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.estatus,
-                          expression: "nota.estatus"
+                          value: _vm.proyecto.estatus,
+                          expression: "proyecto.estatus"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3386,13 +3579,13 @@ var render = function() {
                         placeholder: "Estatus",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.estatus },
+                      domProps: { value: _vm.proyecto.estatus },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "estatus", $event.target.value)
+                          _vm.$set(_vm.proyecto, "estatus", $event.target.value)
                         }
                       }
                     }),
@@ -3402,8 +3595,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.correo,
-                          expression: "nota.correo"
+                          value: _vm.proyecto.correo,
+                          expression: "proyecto.correo"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3412,13 +3605,13 @@ var render = function() {
                         placeholder: "Correo",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.correo },
+                      domProps: { value: _vm.proyecto.correo },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "correo", $event.target.value)
+                          _vm.$set(_vm.proyecto, "correo", $event.target.value)
                         }
                       }
                     }),
@@ -3428,8 +3621,8 @@ var render = function() {
                         {
                           name: "model",
                           rawName: "v-model",
-                          value: _vm.nota.telefono,
-                          expression: "nota.telefono"
+                          value: _vm.proyecto.telefono,
+                          expression: "proyecto.telefono"
                         }
                       ],
                       staticClass: "form-control mb-2",
@@ -3438,13 +3631,17 @@ var render = function() {
                         placeholder: "Teléfono",
                         required: ""
                       },
-                      domProps: { value: _vm.nota.telefono },
+                      domProps: { value: _vm.proyecto.telefono },
                       on: {
                         input: function($event) {
                           if ($event.target.composing) {
                             return
                           }
-                          _vm.$set(_vm.nota, "telefono", $event.target.value)
+                          _vm.$set(
+                            _vm.proyecto,
+                            "telefono",
+                            $event.target.value
+                          )
                         }
                       }
                     }),
@@ -3490,7 +3687,8 @@ var render = function() {
           id: "detallesProyecto",
           tabindex: "-1",
           "aria-labelledby": "exampleModalLabel",
-          "aria-hidden": "true"
+          "aria-hidden": "true",
+          "data-bs-backdrop": "static"
         }
       },
       [
@@ -3499,20 +3697,60 @@ var render = function() {
           { staticClass: "modal-dialog modal-dialog-centered modal-xl" },
           [
             _c("div", { staticClass: "modal-content" }, [
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _c("div", { staticClass: "modal-body" }, [
-                _c("p", { staticClass: "font-weight-bold" }, [
-                  _vm._v("Nombre: " + _vm._s(_vm.nota.nombre))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "font-weight-bolder" }, [
-                  _vm._v("Tipo: " + _vm._s(_vm.nota.tipo))
-                ]),
-                _vm._v(" "),
-                _c("p", { staticClass: "font-weight-normal" }, [
-                  _vm._v("Servicio: " + _vm._s(_vm.nota.servicio))
-                ]),
+                _c(
+                  "table",
+                  {
+                    staticClass: "table table-borderless",
+                    staticStyle: { "text-align": "center" }
+                  },
+                  [
+                    _c("tbody", [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.nombre) + "\n                  "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.correo) + "\n                  "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { colspan: "2" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.telefono) +
+                              "\n                  "
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(6),
+                      _vm._v(" "),
+                      _c("tr", [
+                        _c("td", { attrs: { colspan: "3" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.servicio) +
+                              "\n                    "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { attrs: { colspan: "3" } }, [
+                          _vm._v(
+                            _vm._s(_vm.proyecto.tipo) +
+                              "\n                      "
+                          )
+                        ])
+                      ])
+                    ])
+                  ]
+                ),
                 _vm._v(" "),
                 _c(
                   "div",
@@ -3522,7 +3760,7 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "card" }, [
-                      _vm._m(4),
+                      _vm._m(7),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -3538,7 +3776,7 @@ var render = function() {
                           _c("div", { staticClass: "card-body" }, [
                             _vm._v(
                               "\n                  " +
-                                _vm._s(_vm.nota.descripcion) +
+                                _vm._s(_vm.proyecto.descripcion) +
                                 "\n                "
                             )
                           ])
@@ -3548,7 +3786,21 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _vm._m(5)
+                _c("div", { staticClass: "modal-footer" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-outline-dark",
+                      attrs: { type: "submit", "data-bs-dismiss": "modal" },
+                      on: {
+                        click: function($event) {
+                          return _vm.cancelarEdicion()
+                        }
+                      }
+                    },
+                    [_vm._v("Cerrar")]
+                  )
+                ])
               ])
             ])
           ]
@@ -3556,15 +3808,13 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("h3", [_vm._v("Mis proyectos")]),
-    _vm._v(" "),
     _c("ul", { staticClass: "list-group my-2" }, [
       _c("table", { staticClass: "table table-hover" }, [
-        _vm._m(6),
+        _vm._m(8),
         _vm._v(" "),
         _c(
           "tbody",
-          _vm._l(_vm.notas, function(item, index) {
+          _vm._l(_vm.proyectos, function(item, index) {
             return _c("tr", { key: index }, [
               _c("th", { attrs: { scope: "row" } }, [
                 _c(
@@ -3638,7 +3888,7 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Editar")]
+                  [_c("i", { staticClass: "fas fa-pen" }), _vm._v(" Editar")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -3652,7 +3902,13 @@ var render = function() {
                       }
                     }
                   },
-                  [_vm._v("Eliminar")]
+                  [
+                    _c("i", {
+                      staticClass: "fa fa-trash",
+                      attrs: { "aria-hidden": "true" }
+                    }),
+                    _vm._v(" Eliminar")
+                  ]
                 )
               ])
             ])
@@ -3668,21 +3924,35 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "btn btn-primary",
+        attrs: {
+          type: "button",
+          "data-bs-toggle": "modal",
+          "data-bs-target": "#agregarProyecto"
+        }
+      },
+      [
+        _c("i", {
+          staticClass: "fa fa-plus",
+          attrs: { "aria-hidden": "true" }
+        }),
+        _vm._v(" Nuevo proyecto\n  ")
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "modal-header" }, [
       _c(
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [_vm._v("Agregar nuevo proyecto")]
-      ),
-      _vm._v(" "),
-      _c("button", {
-        staticClass: "btn-close",
-        attrs: {
-          type: "button",
-          "data-bs-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      })
+      )
     ])
   },
   function() {
@@ -3715,16 +3985,7 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [_vm._v("Editar proyecto ")]
-      ),
-      _vm._v(" "),
-      _c("button", {
-        staticClass: "btn-close",
-        attrs: {
-          type: "button",
-          "data-bs-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      })
+      )
     ])
   },
   function() {
@@ -3736,16 +3997,49 @@ var staticRenderFns = [
         "h5",
         { staticClass: "modal-title", attrs: { id: "exampleModalLabel" } },
         [_vm._v("Datos del proyecto")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "2" } },
+        [_vm._v("  \n                    Nombre\n                  ")]
       ),
       _vm._v(" "),
-      _c("button", {
-        staticClass: "btn-close",
-        attrs: {
-          type: "button",
-          "data-bs-dismiss": "modal",
-          "aria-label": "Close"
-        }
-      })
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "2" } },
+        [_vm._v("\n                    Correo electronico\n                  ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "2" } },
+        [_vm._v("\n                    Telefono\n                  ")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "3" } },
+        [_vm._v("Tipo de Servicio\n                  ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "td",
+        { staticClass: "table-active text-primary", attrs: { colspan: "3" } },
+        [_vm._v("\n                    Tipo de Proyecto\n                  ")]
+      )
     ])
   },
   function() {
@@ -3756,7 +4050,7 @@ var staticRenderFns = [
       "div",
       { staticClass: "card-header", attrs: { id: "headingOne" } },
       [
-        _c("h2", { staticClass: "mb-0" }, [
+        _c("h6", { staticClass: "mb-0 text-center" }, [
           _c(
             "a",
             {
@@ -3773,21 +4067,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "submit", "data-bs-dismiss": "modal" }
-        },
-        [_vm._v("Aceptar")]
-      )
-    ])
   },
   function() {
     var _vm = this
@@ -3995,7 +4274,10 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "mx-2",
-                attrs: { href: "https://www.facebook.com/imtechmexblautech" }
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.facebook.com/imtechmexblautech"
+                }
               },
               [_c("i", { staticClass: "fab fa-facebook-f" })]
             ),
@@ -4004,7 +4286,10 @@ var staticRenderFns = [
               "a",
               {
                 staticClass: "mx-2",
-                attrs: { href: "https://www.instagram.com/imtechmex/" }
+                attrs: {
+                  target: "_blank",
+                  href: "https://www.instagram.com/imtechmex/"
+                }
               },
               [_c("i", { staticClass: "fab fa-instagram" })]
             )
@@ -4069,7 +4354,7 @@ var staticRenderFns = [
             "a",
             {
               staticClass: "btn btn-primary btn-lg js-scroll-trigger",
-              attrs: { href: "#signup" }
+              attrs: { href: "#Addproject" }
             },
             [_vm._v("Iniciar")]
           )
@@ -4113,112 +4398,139 @@ var staticRenderFns = [
         _c("div", { staticClass: "container" }, [
           _c(
             "div",
-            { staticClass: "row align-items-center no-gutters mb-4 mb-lg-5" },
+            { staticClass: "col-sm-12 d-flex justify-content-center" },
             [
-              _c("div", { staticClass: "col-xl-8 col-lg-7" }, [
-                _c("img", {
-                  staticClass: "img-fluid mb-3 mb-lg-0",
-                  attrs: { src: "resources/img/bg-masthead.jpg", alt: "" }
-                })
+              _c("h1", { staticClass: "text-center" }, [
+                _vm._v("Nuestros Servicios ")
               ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-xl-4 col-lg-5" }, [
-                _c(
-                  "div",
-                  { staticClass: "featured-text text-center text-lg-left" },
-                  [
-                    _c("h4", [_vm._v("CLIENTES")]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "text-black-50 mb-0" }, [
-                      _vm._v(
-                        "En Yeeply, los profesionales y equipos de nuestra red desarrollan proyectos digitales para las empresas y startup más conocidas en la actualidad. Permite que te mostremos algunos ejemplos de clientes con los que nuestros profesionales trabajan."
-                      )
-                    ])
-                  ]
-                )
-              ])
+              _vm._v(".\n            ")
             ]
           ),
           _vm._v(" "),
           _c(
             "div",
-            {
-              staticClass: "row justify-content-center no-gutters mb-5 mb-lg-0"
-            },
+            { staticClass: "col-sm-12 d-flex justify-content-center" },
             [
-              _c("div", { staticClass: "col-lg-6" }, [
-                _c("img", {
-                  staticClass: "img-fluid",
-                  attrs: { src: "resources/img/demo-image-01.jpg", alt: "" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-lg-6" }, [
-                _c(
-                  "div",
-                  { staticClass: "bg-black text-center h-100 project" },
-                  [
-                    _c("div", { staticClass: "d-flex h-100" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "project-text w-100 my-auto text-center text-lg-left"
-                        },
-                        [
-                          _c("h4", { staticClass: "text-white" }, [
-                            _vm._v("Profesionales certificados")
-                          ]),
-                          _vm._v(" "),
-                          _c("p", { staticClass: "mb-0 text-white-50" }, [
-                            _vm._v(
-                              "Los profesionales con los que vas a trabajar han superado un estricto proceso de certificación. En función de tu proyecto, escogemos a los perfiles adecuados para formar tu equipo."
-                            )
-                          ]),
-                          _vm._v(" "),
-                          _c("hr", {
-                            staticClass: "d-none d-lg-block mb-0 ml-0"
-                          })
-                        ]
-                      )
-                    ])
-                  ]
+              _c("p", { staticClass: "text-center" }, [
+                _vm._v(
+                  "En IMTECHMEX creemos en las ideas es por eso que nosotros te escuchamos y evaluamos todas las propuestas innovadoras y las convertimos en realidad a través de nuestras marcas y sus servicios:"
                 )
               ])
             ]
           ),
           _vm._v(" "),
-          _c("div", { staticClass: "row justify-content-center no-gutters" }, [
-            _c("div", { staticClass: "col-lg-6" }, [
-              _c("img", {
-                staticClass: "img-fluid",
-                attrs: { src: "resources/img/demo-image-02.jpg", alt: "" }
-              })
+          _c("div", { staticClass: "row row-cols-1 row-cols-md-3 " }, [
+            _c("div", { staticClass: "col mb-4" }, [
+              _c("div", { staticClass: "card border-primary" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: "/img/demo-image-01.jpg", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "h5",
+                    { staticClass: "card-title text-center text-uppercase" },
+                    [_vm._v("Desarrollo de Software")]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text text-muted" }, [
+                    _vm._v(
+                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+                    )
+                  ])
+                ])
+              ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-lg-6 order-lg-first" }, [
-              _c("div", { staticClass: "bg-black text-center h-100 project" }, [
-                _c("div", { staticClass: "d-flex h-100" }, [
+            _c("div", { staticClass: "col mb-4" }, [
+              _c("div", { staticClass: "card border-secondary" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: "", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
                   _c(
-                    "div",
-                    {
-                      staticClass:
-                        "project-text w-100 my-auto text-center text-lg-right"
-                    },
-                    [
-                      _c("h4", { staticClass: "text-white" }, [
-                        _vm._v("El precio justo")
-                      ]),
-                      _vm._v(" "),
-                      _c("p", { staticClass: "mb-0 text-white-50" }, [
-                        _vm._v(
-                          "Ofrecemos un precio competitivo —gracias a las tarifas realistas de nuestros profesionales certificados y a la deslocalización de recursos. Ajústate a tu presupuesto sin sacrificar la calidad."
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("hr", { staticClass: "d-none d-lg-block mb-0 mr-0" })
-                    ]
-                  )
+                    "h5",
+                    { staticClass: "card-title text-center text-uppercase" },
+                    [_vm._v("Páginas Web")]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(
+                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col mb-4" }, [
+              _c("div", { staticClass: "card border-secondary" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: "", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "h5",
+                    { staticClass: "card-title text-center text-uppercase" },
+                    [_vm._v("APPs")]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(
+                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col mb-4" }, [
+              _c("div", { staticClass: "card border-secondary" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: "", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "h5",
+                    { staticClass: "card-title text-center text-uppercase" },
+                    [_vm._v("Diseño Gráfico")]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(
+                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col mb-4" }, [
+              _c("div", { staticClass: "card border-secondary" }, [
+                _c("img", {
+                  staticClass: "card-img-top",
+                  attrs: { src: "", alt: "..." }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "card-body" }, [
+                  _c(
+                    "h5",
+                    { staticClass: "card-title text-center text-uppercase" },
+                    [_vm._v("E-commerce")]
+                  ),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "card-text" }, [
+                    _vm._v(
+                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
+                    )
+                  ])
                 ])
               ])
             ])
@@ -4311,8 +4623,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.nota.nombre,
-                                  expression: "nota.nombre"
+                                  value: _vm.proyecto.nombre,
+                                  expression: "proyecto.nombre"
                                 }
                               ],
                               staticClass: "form-control mb-2",
@@ -4321,14 +4633,14 @@ var render = function() {
                                 placeholder: "Nombre",
                                 required: ""
                               },
-                              domProps: { value: _vm.nota.nombre },
+                              domProps: { value: _vm.proyecto.nombre },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.nota,
+                                    _vm.proyecto,
                                     "nombre",
                                     $event.target.value
                                   )
@@ -4350,8 +4662,8 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
-                                          value: _vm.nota.tipo,
-                                          expression: "nota.tipo"
+                                          value: _vm.proyecto.tipo,
+                                          expression: "proyecto.tipo"
                                         }
                                       ],
                                       staticClass:
@@ -4373,7 +4685,7 @@ var render = function() {
                                               return val
                                             })
                                           _vm.$set(
-                                            _vm.nota,
+                                            _vm.proyecto,
                                             "tipo",
                                             $event.target.multiple
                                               ? $$selectedVal
@@ -4413,8 +4725,8 @@ var render = function() {
                                         {
                                           name: "model",
                                           rawName: "v-model",
-                                          value: _vm.nota.servicio,
-                                          expression: "nota.servicio"
+                                          value: _vm.proyecto.servicio,
+                                          expression: "proyecto.servicio"
                                         }
                                       ],
                                       staticClass:
@@ -4436,7 +4748,7 @@ var render = function() {
                                               return val
                                             })
                                           _vm.$set(
-                                            _vm.nota,
+                                            _vm.proyecto,
                                             "servicio",
                                             $event.target.multiple
                                               ? $$selectedVal
@@ -4474,8 +4786,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.nota.descripcion,
-                                  expression: "nota.descripcion"
+                                  value: _vm.proyecto.descripcion,
+                                  expression: "proyecto.descripcion"
                                 }
                               ],
                               staticClass: "form-control mb-2",
@@ -4484,14 +4796,14 @@ var render = function() {
                                 placeholder: "Descripcion",
                                 required: ""
                               },
-                              domProps: { value: _vm.nota.descripcion },
+                              domProps: { value: _vm.proyecto.descripcion },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.nota,
+                                    _vm.proyecto,
                                     "descripcion",
                                     $event.target.value
                                   )
@@ -4504,20 +4816,20 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.nota.estatus,
-                                  expression: "nota.estatus"
+                                  value: _vm.proyecto.estatus,
+                                  expression: "proyecto.estatus"
                                 }
                               ],
                               staticClass: "form-control mb-2",
                               attrs: { type: "hidden", value: "Sin Aceptar" },
-                              domProps: { value: _vm.nota.estatus },
+                              domProps: { value: _vm.proyecto.estatus },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.nota,
+                                    _vm.proyecto,
                                     "estatus",
                                     $event.target.value
                                   )
@@ -4530,8 +4842,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.nota.correo,
-                                  expression: "nota.correo"
+                                  value: _vm.proyecto.correo,
+                                  expression: "proyecto.correo"
                                 }
                               ],
                               staticClass: "form-control mb-2",
@@ -4540,14 +4852,14 @@ var render = function() {
                                 placeholder: "Correo",
                                 required: ""
                               },
-                              domProps: { value: _vm.nota.correo },
+                              domProps: { value: _vm.proyecto.correo },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.nota,
+                                    _vm.proyecto,
                                     "correo",
                                     $event.target.value
                                   )
@@ -4560,8 +4872,8 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: _vm.nota.telefono,
-                                  expression: "nota.telefono"
+                                  value: _vm.proyecto.telefono,
+                                  expression: "proyecto.telefono"
                                 }
                               ],
                               staticClass: "form-control mb-2",
@@ -4570,14 +4882,14 @@ var render = function() {
                                 placeholder: "Teléfono",
                                 required: ""
                               },
-                              domProps: { value: _vm.nota.telefono },
+                              domProps: { value: _vm.proyecto.telefono },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
                                     return
                                   }
                                   _vm.$set(
-                                    _vm.nota,
+                                    _vm.proyecto,
                                     "telefono",
                                     $event.target.value
                                   )

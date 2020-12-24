@@ -2,39 +2,72 @@
 <!--Muestra Proyectos en Administrador-->
     <div>
       <!--Modal detalles del proyecto-->
-      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="exampleModal" data-bs-backdrop="static"  tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Datos del proyecto</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-              
-              <p class="font-weight-bold">Nombre: {{nota.nombre}}</p>
-              <p class="font-weight-bolder">Tipo: {{nota.tipo}}</p>
-              <p class="font-weight-normal">Servicio: {{nota.servicio}}</p>
-              <p class="font-weight-bold">Correo: {{nota.correo}}</p>
-              <p class="font-weight-bold">Teléfono: {{nota.telefono}}</p>
+              <table class="table table-borderless" style="text-align:center;">
+                <tbody>
+                  <tr>
+                    <td colspan="2" class="table-active text-primary" >  
+                      Nombre
+                    </td>
+                       <td colspan="2" class="table-active text-primary">
+                      Correo electronico
+                    </td>
+                    <td colspan="2" class="table-active text-primary">
+                      Telefono
+                    </td>
+                  </tr>  
+                  <tr>
+                    <td colspan="2" >{{proyecto.nombre}}
+                    </td>
+                    <td colspan="2">{{proyecto.correo}}
+                    </td>
+                    <td colspan="2">{{proyecto.telefono}}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="table-active text-primary">Tipo de Servicio
+                    </td>
+                    <td colspan="3" class="table-active text-primary">
+                      Tipo de Proyecto
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">{{proyecto.servicio}}
+                      </td>
+                      <td colspan="3">{{proyecto.tipo}}
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
               <div class="accordion" id="accordionExample">
                 <div class="card">
                   <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
+                    <h6 class="mb-0 text-center">
                       <a class="font-weight-normal text-primary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         Descripción
                       </a>
-                    </h2>
+                    </h6>
                   </div>
 
                   <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
-                      {{nota.descripcion}}
+                      {{proyecto.descripcion}}
                     </div>
                   </div>
                 </div>
               </div>
-              <form @submit.prevent="editarNota(nota)">
-                <select class="form-select form-control mb-2" aria-label="Default select example" v-model="nota.estatus" required>
+              <hr>
+              <form @submit.prevent="editarNota(proyecto)">
+                <label class="text-primary">
+                  Cambiar estatus
+                </label>
+                <select class="form-select form-control mb-2" aria-label="Default select example" v-model="proyecto.estatus" required>
                   <option class="text-primary" value="Aceptado">Aceptado</option>
                   <option class="text-secondary" value="En proceso">En proceso</option>
                   <option class="text-success" value="Finalizado">Finalizado</option>
@@ -62,7 +95,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in notas" :key="index">
+            <tr v-for="(item, index) in proyectos" :key="index">
               <th scope="row"> <a class="text-primary" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal" @click="editarFormulario(item)"><i class="far fa-file-alt"></i>
               {{item.nombre}}</a></th>
               <td>{{item.tipo}}</td>
@@ -106,8 +139,8 @@
 export default {
   data() {
     return {
-      notas: [],
-      nota: {nombre: '',
+      proyectos: [],
+      proyecto: {nombre: '',
             tipo: '',
             servicio: '',
             descripcion: '',
@@ -163,7 +196,7 @@ export default {
     var url= '/proyecto?page=' + page;
     axios.get(url).then(function (response) {
         var respuesta = response.data;
-        me.notas = respuesta.proyecto.data;
+        me.proyectos = respuesta.proyecto.data;
         me.pagination = respuesta.pagination;
 
     })
@@ -172,30 +205,38 @@ export default {
     });
     },
     editarFormulario(item){
-        this.nota.id = item.id;
-        this.nota.nombre = item.nombre;
-        this.nota.tipo = item.tipo;
-        this.nota.servicio = item.servicio;
-        this.nota.descripcion = item.descripcion;
-        this.nota.estatus = item.estatus;
-        this.nota.correo = item.correo;
-        this.nota.telefono = item.telefono;
+        this.proyecto.id = item.id;
+        this.proyecto.nombre = item.nombre;
+        this.proyecto.tipo = item.tipo;
+        this.proyecto.servicio = item.servicio;
+        this.proyecto.descripcion = item.descripcion;
+        this.proyecto.estatus = item.estatus;
+        this.proyecto.correo = item.correo;
+        this.proyecto.telefono = item.telefono;
     },
-    editarNota(nota){
-      const params = {nombre: nota.nombre, tipo: nota.tipo, servicio: nota.servicio, descripcion: nota.descripcion, estatus: nota.estatus, correo: nota.correo, telefono: nota.telefono};
-      axios.put(`/proyecto/${nota.id}`, params)
+    editarNota(proyecto){
+      const params = {nombre: proyecto.nombre, tipo: proyecto.tipo, servicio: proyecto.servicio, descripcion: proyecto.descripcion, estatus: proyecto.estatus, correo: proyecto.correo, telefono: proyecto.telefono};
+      axios.put(`/proyecto/${proyecto.id}`, params)
         .then(res=>{
-          const index = this.notas.findIndex(item => item.id === nota.id);
-          this.notas[index] = res.data;
+          const index = this.proyectos.findIndex(item => item.id === proyecto.id);
+          this.proyectos[index] = res.data;
         })
       Swal.fire({
       icon: 'success',
-      title: `Proyecto ${nota.estatus}`,
+      title: `Proyecto ${proyecto.estatus}`,
       showConfirmButton: false,
       timer: 1500,
       timerProgressBar: true
     })
-    $('#exampleModal').modal('hide')
+    },
+    cancelarEdicion(){
+      this.proyecto = {nombre: '',
+            tipo: '',
+            servicio: '',
+            descripcion: '',
+            estatus:'',
+            correo: '',
+            telefono: ''};
     },
     cambiarPagina(page){
         let me = this;
