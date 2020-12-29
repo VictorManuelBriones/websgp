@@ -1215,6 +1215,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'SiteMasthead'
 });
@@ -1230,25 +1231,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -4421,10 +4403,15 @@ var staticRenderFns = [
           _vm._v(" "),
           _c("div", { staticClass: "row row-cols-1 row-cols-md-3 " }, [
             _c("div", { staticClass: "col mb-4" }, [
-              _c("div", { staticClass: "card border-primary" }, [
+              _c("div", { staticClass: "card border-secondary" }, [
                 _c("img", {
                   staticClass: "card-img-top",
-                  attrs: { src: "/img/demo-image-01.jpg", alt: "..." }
+                  attrs: {
+                    src: "/img/crd-1.png",
+                    alt: "...",
+                    width: "10px",
+                    height: "200px"
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
@@ -4447,7 +4434,12 @@ var staticRenderFns = [
               _c("div", { staticClass: "card border-secondary" }, [
                 _c("img", {
                   staticClass: "card-img-top",
-                  attrs: { src: "", alt: "..." }
+                  attrs: {
+                    src: "/img/crd-2.png",
+                    alt: "...",
+                    width: "10px",
+                    height: "200px"
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
@@ -4470,7 +4462,12 @@ var staticRenderFns = [
               _c("div", { staticClass: "card border-secondary" }, [
                 _c("img", {
                   staticClass: "card-img-top",
-                  attrs: { src: "", alt: "..." }
+                  attrs: {
+                    src: "/img/crd-3.png",
+                    alt: "...",
+                    width: "10px",
+                    height: "200px"
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
@@ -4493,7 +4490,12 @@ var staticRenderFns = [
               _c("div", { staticClass: "card border-secondary" }, [
                 _c("img", {
                   staticClass: "card-img-top",
-                  attrs: { src: "", alt: "..." }
+                  attrs: {
+                    src: "/img/crd-4.png",
+                    alt: "...",
+                    width: "10px",
+                    height: "200px"
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [
@@ -4516,7 +4518,12 @@ var staticRenderFns = [
               _c("div", { staticClass: "card border-secondary" }, [
                 _c("img", {
                   staticClass: "card-img-top",
-                  attrs: { src: "", alt: "..." }
+                  attrs: {
+                    src: "/img/crd-5.png",
+                    alt: "...",
+                    width: "10px",
+                    height: "200px"
+                  }
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "card-body" }, [

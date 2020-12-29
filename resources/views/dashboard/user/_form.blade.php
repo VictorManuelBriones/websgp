@@ -19,4 +19,3 @@
 </div>
 
 @endif
-<input type="submit" value="Enviar" class="btn btn-primary">

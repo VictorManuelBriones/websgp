@@ -60,7 +60,29 @@
                         <td>{{ $user->phone }}</td>
                         <td>{{ $user->rol->key }}</td>
                         <td>
-                            <a href="{{ route('user.edit',$user->id) }}" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuario">Editar</a>
+                            <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuario{{ $user->id }}">Editar</button>
+                             <!-- Modal editar Usuario-->
+                            <div class="modal fade" id="editarUsuario{{ $user->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Editar Usuario</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <form action="{{ route("user.update",$user->id) }}" method="POST">
+                                      @method('PUT')
+                                      @include('dashboard.user._form', ['pasw'=>false])
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                        <input type="submit" value="Guardar" class="btn btn-primary">
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- /Modal editar Usuario -->
                             <form id="formDelete" method="POST" action="{{ route('user.destroy',$user->id) }}"
                             data-action="{{ route('user.destroy',$user->id)}}">
                             @method('DELETE')
@@ -102,7 +124,7 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
                       </div>
                     </form>
                   </div>
@@ -110,28 +132,6 @@
               </div>
             </div>
             <!-- /Modal agregar Usuario -->
-            <!-- Modal editar Usuario-->
-            <div class="modal fade" id="editarUsuario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <form action="{{ route("user.update",$user->id) }}" method="POST">
-                      @method('PUT')
-                      @include('dashboard.user._form', ['pasw'=>false])
-                  </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Understood</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /Modal editar Usuario -->
           </div>
         <!--/Contenido-->
       </main>
