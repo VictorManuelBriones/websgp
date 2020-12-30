@@ -31,9 +31,12 @@
                     </select>
                   </div>
                 </div>
+                <label>Descripción</label>
                 <textarea type="textarea" placeholder="Descripcion" class="form-control mb-2" v-model="proyecto.descripcion" required></textarea>
                 <input type="hidden" value="Sin Aceptar" class="form-control mb-2" v-model="proyecto.estatus">
-                <input type="email" placeholder="Correo" class="form-control mb-2" v-model="proyecto.correo" required>
+                <label>Correo electrónico</label>
+                <input type="email" placeholder="Correo electrónico" class="form-control mb-2" v-model="proyecto.correo" required>
+                <label>Teléfono</label>
                 <input type="cel" placeholder="Teléfono" class="form-control mb-2" v-model="proyecto.telefono" required>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -71,9 +74,12 @@
                     </select>
                   </div>
                 </div>
+                <label>Descripción</label>
                 <textarea type="textarea" placeholder="Descripcion" class="form-control mb-2" v-model="proyecto.descripcion" required></textarea>
                 <input type="hidden" placeholder="Estatus" class="form-control mb-2" v-model="proyecto.estatus" required>
-                <input type="email" placeholder="Correo" class="form-control mb-2" v-model="proyecto.correo" required>
+                <label>Correo electrónico</label>
+                <input type="email" placeholder="Correo electrónico" class="form-control mb-2" v-model="proyecto.correo" required>
+                <label>Teléfono</label>
                 <input type="cel" placeholder="Teléfono" class="form-control mb-2" v-model="proyecto.telefono" required>
                 <div class="modal-footer">
                   <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" @click="cancelarEdicion()">Cancelar</button>

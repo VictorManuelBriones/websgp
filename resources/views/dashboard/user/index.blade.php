@@ -63,11 +63,10 @@
                             <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editarUsuario{{ $user->id }}">Editar</button>
                              <!-- Modal editar Usuario-->
                             <div class="modal fade" id="editarUsuario{{ $user->id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                              <div class="modal-dialog">
+                              <div class="modal-dialog modal-dialog-centered modal-lg">
                                 <div class="modal-content">
                                   <div class="modal-header">
                                     <h5 class="modal-title" id="staticBackdropLabel">Editar Usuario</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                   </div>
                                   <div class="modal-body">
                                     <form action="{{ route("user.update",$user->id) }}" method="POST">
@@ -83,12 +82,34 @@
                               </div>
                             </div>
                             <!-- /Modal editar Usuario -->
-                            <form id="formDelete" method="POST" action="{{ route('user.destroy',$user->id) }}"
-                            data-action="{{ route('user.destroy',$user->id)}}">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
-                            </form>
+                            <button data-toggle="modal" data-target="#deleteModal{{ $user->id }}" data-id="{{ $user->id }}"
+                              class="btn btn-danger">Eliminar</button>
+                              <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content ">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="modalLabel"></h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>¿Seguro que desea borrar {{ $user->name }}?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            
+                                            <form id="formDelete" method="POST" action="{{ route('user.destroy',$user->id) }}"
+                                              data-action="{{ route('user.destroy',$user->id)}}">
+                                              @method('DELETE')
+                                              @csrf
+                                              <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i> Borrar</button>
+                                              </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -112,7 +133,7 @@
                       <div class="form-group">
                           <label for="email">E-mail</label>
                           <input class="form-control" type="email" name="email" id="email" value="">
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                          <small id="emailHelp" class="form-text text-muted">Nunca compartiremos tu correo electrónico con nadie más.</small>
                       </div>
                       <div class="form-group">
                           <label for="phone">Teléfono</label>
@@ -136,5 +157,24 @@
         <!--/Contenido-->
       </main>
     </div>
+    
   </div>
+
+  <script>
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var id = button.data('id') // Extract info from data-* attributes
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      
+        action = $('#formDelete').attr('data-action').slice(0,-1)
+        action += id
+        console.log(action)
+      
+        $('#formDelete').attr('action',action)
+      
+        var modal = $(this)
+        modal.find('.modal-title').text('Vas a borrar la categoría: ' + id)
+      })
+  </script>
 @endsection

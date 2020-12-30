@@ -6,7 +6,7 @@
 <div class="form-group">
     <label for="email">E-mail</label>
     <input class="form-control" type="email" name="email" id="email" value="{{ old('email',$user->email) }}">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <small id="emailHelp" class="form-text text-muted">Nunca compartiremos tu correo electrónico con nadie más.</small>
 </div>
 <div class="form-group">
     <label for="phone">Teléfono</label>

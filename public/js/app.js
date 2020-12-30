@@ -932,6 +932,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1310,6 +1316,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
 //
 //
 //
@@ -3234,6 +3243,8 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
+                    _c("label", [_vm._v("Descripción")]),
+                    _vm._v(" "),
                     _c("textarea", {
                       directives: [
                         {
@@ -3286,6 +3297,8 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _c("label", [_vm._v("Correo electrónico")]),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -3298,7 +3311,7 @@ var render = function() {
                       staticClass: "form-control mb-2",
                       attrs: {
                         type: "email",
-                        placeholder: "Correo",
+                        placeholder: "Correo electrónico",
                         required: ""
                       },
                       domProps: { value: _vm.proyecto.correo },
@@ -3311,6 +3324,8 @@ var render = function() {
                         }
                       }
                     }),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Teléfono")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -3516,6 +3531,8 @@ var render = function() {
                       ])
                     ]),
                     _vm._v(" "),
+                    _c("label", [_vm._v("Descripción")]),
+                    _vm._v(" "),
                     _c("textarea", {
                       directives: [
                         {
@@ -3572,6 +3589,8 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _c("label", [_vm._v("Correo electrónico")]),
+                    _vm._v(" "),
                     _c("input", {
                       directives: [
                         {
@@ -3584,7 +3603,7 @@ var render = function() {
                       staticClass: "form-control mb-2",
                       attrs: {
                         type: "email",
-                        placeholder: "Correo",
+                        placeholder: "Correo electrónico",
                         required: ""
                       },
                       domProps: { value: _vm.proyecto.correo },
@@ -3597,6 +3616,8 @@ var render = function() {
                         }
                       }
                     }),
+                    _vm._v(" "),
+                    _c("label", [_vm._v("Teléfono")]),
                     _vm._v(" "),
                     _c("input", {
                       directives: [
@@ -4788,6 +4809,8 @@ var render = function() {
                               )
                             ]),
                             _vm._v(" "),
+                            _c("label", [_vm._v("Descripción")]),
+                            _vm._v(" "),
                             _c("textarea", {
                               directives: [
                                 {
@@ -4844,6 +4867,8 @@ var render = function() {
                               }
                             }),
                             _vm._v(" "),
+                            _c("label", [_vm._v("Correo electrónico")]),
+                            _vm._v(" "),
                             _c("input", {
                               directives: [
                                 {
@@ -4856,7 +4881,7 @@ var render = function() {
                               staticClass: "form-control mb-2",
                               attrs: {
                                 type: "email",
-                                placeholder: "Correo",
+                                placeholder: "Correo electrónico",
                                 required: ""
                               },
                               domProps: { value: _vm.proyecto.correo },
@@ -4873,6 +4898,8 @@ var render = function() {
                                 }
                               }
                             }),
+                            _vm._v(" "),
+                            _c("label", [_vm._v("Teléfono")]),
                             _vm._v(" "),
                             _c("input", {
                               directives: [
