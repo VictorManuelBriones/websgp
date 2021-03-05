@@ -245,7 +245,7 @@ __webpack_require__.r(__webpack_exports__);
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Eliminar',
+        confirmButtonText: 'Si, eliminar',
         cancelButtonText: 'Cancelar'
       }).then(function (result) {
         if (result.isConfirmed) {
@@ -4442,11 +4442,7 @@ var staticRenderFns = [
                     [_vm._v("Desarrollo de Software")]
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "card-text text-muted" }, [
-                    _vm._v(
-                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-                    )
-                  ])
+                  _c("p", { staticClass: "card-text text-muted" })
                 ])
               ])
             ]),
@@ -4470,11 +4466,7 @@ var staticRenderFns = [
                     [_vm._v("Páginas Web")]
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-                    )
-                  ])
+                  _c("p", { staticClass: "card-text" })
                 ])
               ])
             ]),
@@ -4498,11 +4490,7 @@ var staticRenderFns = [
                     [_vm._v("APPs")]
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-                    )
-                  ])
+                  _c("p", { staticClass: "card-text" })
                 ])
               ])
             ]),
@@ -4526,11 +4514,7 @@ var staticRenderFns = [
                     [_vm._v("Diseño Gráfico")]
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-                    )
-                  ])
+                  _c("p", { staticClass: "card-text" })
                 ])
               ])
             ]),
@@ -4554,11 +4538,7 @@ var staticRenderFns = [
                     [_vm._v("E-commerce")]
                   ),
                   _vm._v(" "),
-                  _c("p", { staticClass: "card-text" }, [
-                    _vm._v(
-                      "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer."
-                    )
-                  ])
+                  _c("p", { staticClass: "card-text" })
                 ])
               ])
             ])
